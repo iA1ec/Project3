@@ -4,7 +4,8 @@
  */
 public class BullShit {
     
-    
+    public BullShit() {
+    }
     
     
 }
