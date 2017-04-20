@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=aWarehouse
+comment0.target=Truck(Warehouse)
+comment0.text=\n\ A\ Constructor\ only\ given\ a\ base\ warehouse,\ initializes\ weight\ to\ 0\n
+comment1.params=aWarehouse\ weight
+comment1.target=Truck(Warehouse,\ int)
+comment1.text=\n\ A\ Constructor\ given\ an\ initial\ weight\ and\ a\ warehouse\n
+numComments=2
