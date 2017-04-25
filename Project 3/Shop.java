@@ -18,7 +18,7 @@ public class Shop extends Vertex
      */
     public Shop( Point aLocation, String anId ) {
         super( anId, aLocation );
-        this.supplyList = new ArrayList<Integer>();
+        this.supplyList = new ArrayList<Cargo>();
     }
     
     /**
@@ -30,7 +30,7 @@ public class Shop extends Vertex
     public Shop( String anId, Point aLocation, int[] supplies )
     {
         super( anId, aLocation );
-        this.supplyList = new ArrayList<Integer>();
+        this.supplyList = new ArrayList<Cargo>();
         
         for ( int s : supplies )
             this.supplyList.add( new Cargo( this, s ) );
@@ -45,7 +45,7 @@ public class Shop extends Vertex
     public Shop( String anId, Point aLocation, String[] supplies )
     {
         super( anId, aLocation );
-        this.supplyList = new ArrayList<Integer>();
+        this.supplyList = new ArrayList<Cargo>();
         
         for ( String s : supplies )
             this.supplyList.add( new Cargo( this, Integer.parseInt( s ) ) );

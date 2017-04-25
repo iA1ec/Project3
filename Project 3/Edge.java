@@ -5,7 +5,7 @@
  * @author Alec Flanigan
  * @version 4/25/2017
  */
-public class Edge
+public class Edge implements Comparable< Edge >
 {
     private Vertex start, end;
     private int distance;
@@ -28,5 +28,9 @@ public class Edge
     
     public int getDistance() {
         return this.distance;
+    }
+    
+    public int compareTo( Edge second ) {
+        return this.distance - second.distance;
     }
 }
