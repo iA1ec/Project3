@@ -9,4 +9,6 @@ comment3.params=
 comment3.target=Vertex\ getEnd()
 comment4.params=
 comment4.target=int\ getDistance()
-numComments=5
+comment5.params=second
+comment5.target=int\ compareTo(Edge)
+numComments=6
