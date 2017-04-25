@@ -10,7 +10,7 @@ public class Warehouse extends Vertex {
     /**
      * A Constructor given an id and location
      */
-    public Warehouse(int id, Point location) {
+    public Warehouse(String id, Point location) {
         super(id, location);
         numOfTrucks = 0;
     }

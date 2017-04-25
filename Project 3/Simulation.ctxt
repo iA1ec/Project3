@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Simulation()
+comment1.params=shopsFileName\ warehousesFileName
+comment1.target=void\ readInData(java.lang.String,\ java.lang.String)
+comment1.text=\n\ A\ Method\ to\ read\ in\ the\ given\ data\n\ @param\ shopsFileName\ \ \ \ \ \ \ The\ name\ of\ the\ file\ with\ the\ shops\n\ @param\ WarehousesFileName\ \ The\ name\ of\ the\ file\ with\ the\ warehouses\ \n
+numComments=2

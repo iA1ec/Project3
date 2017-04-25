@@ -1,3 +1,6 @@
+import java.util.Scanner;
+import java.io.FileReader;
+import java.awt.Point;
 
 /**
  * A Class to simulation the deliveries
@@ -21,7 +24,7 @@ public class Simulation {
         
         try {
             inputShops = new Scanner(new FileReader(shopsFileName));
-            inputWarehouses = new Scanner(new FileReader(warehosesFileName));
+            inputWarehouses = new Scanner(new FileReader(warehousesFileName));
         }
         catch (Exception e) {
             System.out.println(e);
@@ -29,8 +32,8 @@ public class Simulation {
         
         while (inputShops.hasNextLine()) {
             String aLine = inputShops.nextLine();
-            String[] parts = aLine.split(", ", " ", ")", "(", ":");
-            Point location = new Point(parts[1], parts[2]);
+            String[] parts = aLine.split("[\\D+]");
+            Point location = new Point(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
             
             String[] cargo = new String[parts.length-3];
             for (int i=3; i<parts.length; i++) {
