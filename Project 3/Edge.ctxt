@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Edge
+comment0.text=\n\ Write\ a\ description\ of\ class\ Edge\ here.\n\n\ @author\ Alec\ Flanigan\n\ @version\ 4/25/2017\n
+comment1.params=s\ e
+comment1.target=Edge(Vertex,\ Vertex)
+comment2.params=
+comment2.target=Vertex\ getStart()
+comment3.params=
+comment3.target=Vertex\ getEnd()
+comment4.params=
+comment4.target=int\ getDistance()
+comment5.params=second
+comment5.target=int\ compareTo(Edge)
+numComments=6
