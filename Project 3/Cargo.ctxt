@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.params=aShop\ weight
+comment0.target=Cargo(Shop,\ int)
+comment1.params=aCargo
+comment1.target=boolean\ equals(Cargo)
+numComments=2
