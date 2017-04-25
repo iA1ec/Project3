@@ -2,7 +2,7 @@
 comment0.params=aWarehouse
 comment0.target=Truck(Warehouse)
 comment0.text=\n\ A\ Constructor\ only\ given\ a\ base\ warehouse,\ initializes\ weight\ to\ 0\n
-comment1.params=aWarehouse\ weight
-comment1.target=Truck(Warehouse,\ int)
-comment1.text=\n\ A\ Constructor\ given\ an\ initial\ weight\ and\ a\ warehouse\n
+comment1.params=weight
+comment1.target=void\ addWeight(int)
+comment1.text=\n\ A\ Method\ to\ add\ a\ weight\ to\ the\ truck\n\ @param\ weight\ \ The\ new\ weight\ to\ be\ added\ to\ the\ truck\n
 numComments=2

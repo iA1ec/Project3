@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /**
  * A Class to represent a single Truck
@@ -5,25 +6,30 @@
 public class Truck {
     
     private Warehouse baseWarehouse; //the base warehouse of the Truck
-    private int weight; //The weight that the truck is carrying
+    private ArrayList<Integer> weights; //The weight that the truck is carrying
+    private int totalWeight; //The total weight in the truck
     public static final int MAX_WEIGHT = 500; //The maximum weight a truck can hold
     
     /**
      * A Constructor only given a base warehouse, initializes weight to 0
      */
     public Truck(Warehouse aWarehouse) {
-        this(aWarehouse, 0);
+        baseWarehouse = aWarehouse;
+        weights = new ArrayList<Integer>();
+        totalWeight = 0;
     }
     
+    
     /**
-     * A Constructor given an initial weight and a warehouse
+     * A Method to add a weight to the truck
+     * @param weight  The new weight to be added to the truck
      */
-    public Truck(Warehouse aWarehouse, int weight) {
-        baseWarehouse = aWarehouse;
-        if (weight >= 0 && weight <= MAX_WEIGHT)
-            this.weight = weight;
-        else
-            throw new IllegalArgumentException();
+    public void addWeight(int weight) {
+        if (totalWeight + weight > MAX_WEIGHT)
+            throw new IllegalArgumentException(); //Truck is too full
+            
+        weights.add(weight);
+        totalWeight += weight;
     }
     
     
