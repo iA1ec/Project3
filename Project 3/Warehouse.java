@@ -3,18 +3,15 @@ import java.awt.Point;
 /**
  * A Class to represent a Warehouse with many trucks that has shop supplies
  */
-public class Warehouse {
+public class Warehouse extends Vertex {
     
-    private String id; //The ID of this warehouse
-    private Point location; //The location of the warehouse
     private int numOfTrucks;
     
     /**
      * A Constructor given an id and location
      */
-    public Warehouse(String id, Point location) {
-        this.id = id;
-        this.location = location;
+    public Warehouse(int id, Point location) {
+        super(id, location);
         numOfTrucks = 0;
     }
     
