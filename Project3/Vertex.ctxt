@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=anId\ aLocation
+comment0.target=Vertex(java.lang.String,\ java.awt.Point)
+comment1.params=anEdge
+comment1.target=void\ addEdge(Edge)
+comment2.params=
+comment2.target=java.awt.Point\ getLocation()
+comment3.params=
+comment3.target=java.lang.String\ getId()
+comment4.params=
+comment4.target=java.util.ArrayList\ getEdges()
+comment5.params=
+comment5.target=void\ printEdges()
+numComments=6
