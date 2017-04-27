@@ -1,5 +1,5 @@
 import java.awt.Point;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Write a description of class Vertex here.
@@ -20,12 +20,14 @@ public class Vertex
     }
     
     public void addEdge( Edge anEdge ) {
-        this.edges.add( anEdge );
+        int position = Collections.binarySearch(edges, anEdge);
+        
+        if (position < 0)
+            position = (-1 * position) - 1;
+        
+        edges.add( position, anEdge );
     }
     
-    public void sortEdges() {
-        this.edges.sort( null );
-    }
     
     public Point getLocation() {
         return this.location;
@@ -37,5 +39,10 @@ public class Vertex
     
     public ArrayList< Edge > getEdges() {
         return this.edges;
+    }
+    
+    public void printEdges() {
+        for (Edge e : edges)    
+            System.out.print(e.getEnd().getId() + " distance: " + e.getDistance() + ", ");
     }
 }

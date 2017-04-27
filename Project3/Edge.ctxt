@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.params=s\ e
+comment0.target=Edge(Vertex,\ Vertex)
+comment1.params=
+comment1.target=Vertex\ getStart()
+comment2.params=
+comment2.target=Vertex\ getEnd()
+comment3.params=
+comment3.target=int\ getDistance()
+comment4.params=second
+comment4.target=int\ compareTo(Edge)
+numComments=5

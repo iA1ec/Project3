@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.params=args
+comment0.target=void\ main(java.lang.String[])
+comment1.params=
+comment1.target=Simulation()
+comment2.params=shopsFileName\ warehousesFileName
+comment2.target=void\ readInData(java.lang.String,\ java.lang.String)
+comment2.text=\n\ A\ Method\ to\ read\ in\ the\ given\ data\n\ @param\ shopsFileName\ \ \ \ \ \ \ The\ name\ of\ the\ file\ with\ the\ shops\n\ @param\ WarehousesFileName\ \ The\ name\ of\ the\ file\ with\ the\ warehouses\ \n
+comment3.params=
+comment3.target=void\ addEdges()
+comment3.text=\n\ A\ Method\ to\ add\ an\ edge\ from\ all\ vertices\ to\ all\ shops\ in\ the\ graph\n
+comment4.params=
+comment4.target=void\ loadTrucks()
+comment4.text=\n\ A\ Method\ to\ load\ all\ of\ the\ trucks\ with\ the\ proper\ weights\n
+comment5.params=
+comment5.target=Graph\ getGraph()
+numComments=6

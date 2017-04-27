@@ -1,7 +1,7 @@
 #BlueJ class context
-comment0.params=id\ location
-comment0.target=Warehouse(int,\ java.awt.Point)
-comment0.text=\n\ A\ Constructor\ given\ an\ id\ and\ location\n
+comment0.params=id\ location\ numOfTrucks
+comment0.target=Warehouse(java.lang.String,\ java.awt.Point,\ int)
+comment0.text=\n\ A\ Constructor\ given\ an\ id,\ location,\ and\ number\ of\ trucks\n
 comment1.params=a
 comment1.target=void\ addTrucks(int)
 comment1.text=\n\ A\ Method\ to\ add\ a\ truck\ to\ the\ queue\ of\ trucks\n\ @param\ a\ \ The\ number\ of\ trucks\ to\ be\ added\n

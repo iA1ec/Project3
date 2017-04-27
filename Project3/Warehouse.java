@@ -8,11 +8,11 @@ public class Warehouse extends Vertex {
     private int numOfTrucks;
     
     /**
-     * A Constructor given an id and location
+     * A Constructor given an id, location, and number of trucks
      */
-    public Warehouse(int id, Point location) {
+    public Warehouse(String id, Point location, int numOfTrucks) {
         super(id, location);
-        numOfTrucks = 0;
+        this.numOfTrucks = numOfTrucks;
     }
     
     /**
