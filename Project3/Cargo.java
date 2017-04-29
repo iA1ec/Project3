@@ -29,4 +29,7 @@ public class Cargo{
        return this.weight;
    }
    
+   public Shop getDestination() {
+       return this.destination;
+    }
 }

@@ -1,10 +1,18 @@
 #BlueJ class context
-comment0.params=aWarehouse
-comment0.target=Truck(Warehouse)
-comment0.text=\n\ A\ Constructor\ only\ given\ a\ base\ warehouse,\ initializes\ weight\ to\ 0\n
-comment1.params=c
-comment1.target=void\ addWeight(Cargo)
-comment1.text=\n\ A\ Method\ to\ add\ a\ weight\ to\ the\ truck\n\ @param\ weight\ \ The\ new\ weight\ to\ be\ added\ to\ the\ truck\n
-comment2.params=
-comment2.target=int\ getWeight()
-numComments=3
+comment0.target=Truck
+comment0.text=\n\ A\ Class\ to\ represent\ a\ single\ Truck\n
+comment1.params=aWarehouse
+comment1.target=Truck(Warehouse)
+comment1.text=\n\ A\ Constructor\ only\ given\ a\ base\ warehouse,\ initializes\ weight\ to\ 0\n
+comment2.params=c
+comment2.target=void\ addWeight(Cargo)
+comment2.text=\n\ A\ Method\ to\ add\ a\ weight\ to\ the\ truck\n\ @param\ weight\ \ The\ new\ weight\ to\ be\ added\ to\ the\ truck\n
+comment3.params=
+comment3.target=int\ getWeight()
+comment4.params=aDistance
+comment4.target=void\ setDistance(int)
+comment5.params=
+comment5.target=java.util.ArrayList\ getCargos()
+comment6.params=
+comment6.target=java.lang.String\ toString()
+numComments=7

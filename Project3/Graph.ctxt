@@ -1,12 +1,14 @@
 #BlueJ class context
-comment0.params=
-comment0.target=Graph()
-comment1.params=aVertex
-comment1.target=void\ addVertex(Vertex)
-comment2.params=
-comment2.target=void\ addEdges()
+comment0.target=Graph
+comment0.text=\n\ A\ Class\ for\ a\ graph\ that\ represents\ the\ coffee\ shops\ are\ warehouses\n
+comment1.params=
+comment1.target=Graph()
+comment2.params=aVertex
+comment2.target=void\ addVertex(Vertex)
 comment3.params=
-comment3.target=void\ printGraph()
+comment3.target=void\ addEdges()
 comment4.params=
-comment4.target=java.util.ArrayList\ getVertices()
-numComments=5
+comment4.target=void\ printGraph()
+comment5.params=
+comment5.target=java.util.ArrayList\ getVertices()
+numComments=6
