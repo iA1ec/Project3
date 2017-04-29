@@ -11,7 +11,7 @@ public class Simulation {
         Simulation mySim = new Simulation();
         mySim.readInData("shops.txt", "warehouses1.txt");
         mySim.addEdges();
-        mySim.getGraph().printGraph();
+        //mySim.getGraph().printGraph();
     }
     
     
@@ -48,23 +48,36 @@ public class Simulation {
         int warehouseIndex = 0;
         warehouses = new Warehouse[numOfWarehouses];
         
+        
+        
+        //int minCargo = 500; //Finding the minimum weight of a cargo
+        
         //Reading in the shops
         while (inputShops.hasNextLine()) {
             String aLine = inputShops.nextLine();
             String[] parts = aLine.split("[\\s\\.,\\(\\)\\:]+");
+            
             //for (String s : parts)
                 //System.out.println(s);
+                
             Point location = new Point(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
             
             String[] cargo = new String[parts.length-3];
+            
+            
             for (int i=3; i<parts.length; i++) {
                 cargo[i-3] = parts[i];
+                //if (Integer.parseInt(parts[i]) < minCargo)
+                    //minCargo = Integer.parseInt(parts[i]);
             }
+            
+            
             
             Shop aShop = new Shop(parts[0], location, cargo);
             cityGraph.addVertex(aShop); 
             shops[shopIndex++] = aShop;
         }
+        
         
         
         //Reading in the warehouses
@@ -96,13 +109,12 @@ public class Simulation {
      */
     public void loadTrucks() {
         
-        //Start with all warehouses except for base warehouse
         for (int i=0; i<warehouses.length; i++) {
-            Vertex v = warehouses[i].getEdges().get(0).getEnd();
+                
+            while (warehouses[i].getNumOfTrucks() > 0) {
+                warehouses[i].loadTruck();
+            }
             
-            Shop closestShop = null;
-            if (v instanceof Shop)
-                closestShop = (Shop)(v);
         }
     }
     
