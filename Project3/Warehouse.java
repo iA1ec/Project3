@@ -30,8 +30,9 @@ public class Warehouse extends Vertex {
         Truck aTruck = new Truck(this);
         this.trucks[ this.numOfTrucks++ ] = aTruck;
         
+        Vertex start = this;
         while (aTruck.getWeight() < Truck.MAX_WEIGHT - Truck.CUT_OFF) {
-            Shop s = findClosestShop();
+            Shop s = (Shop)findClosestShop( aTruck, start );
             ArrayList<Cargo> supplies = s.getSupplyList();
             for (int i=0; i<supplies.size(); i++) {
                 Cargo c = supplies.get(i);
@@ -40,18 +41,17 @@ public class Warehouse extends Vertex {
                     c.setLoaded();
                 }
             }
-               
+            start = s;
         }
     }
     
-    /**
-     * A Method to find the closest Shop that is not already satisfied
-     * @return Shop  Returns the closest shop that is not already fully satisfied
-     */
-    public Shop findClosestShop() {
-        for (int i=0; i<edges.size(); i++) {
-            Shop s = (Shop)(edges.get(i).getEnd());
-            if (!s.isSatisfied()) {
+    public Shop findClosestShop( Truck aTruck, Vertex start ) {
+        for (int i=0; i < start.getEdges().size(); i++) {
+            Vertex v = start.getEdges().get( i ).getEnd();
+            if ( !(v instanceof Shop) )
+                continue;
+            Shop s = (Shop)(start.getEdges().get(i).getEnd());
+            if (!s.isSatisfied() && !aTruck.hasVisited( s ) ) {
                 return s;
             }
         }
@@ -67,20 +67,22 @@ public class Warehouse extends Vertex {
             ArrayList<Cargo> supplies = s.getSupplyList();
             while (!s.isSatisfied()) {
                 
-                if ( aTruck.getWeight() > Truck.MAX_WEIGHT - Truck.CUT_OFF ) {
-                    aTruck = new Truck( this );
-                    this.trucks[ this.numOfTrucks++ ] = aTruck;
-                }
-                
                 for (int j=0; j<supplies.size(); j++) {
                     Cargo c = supplies.get(j);
-                    if (!c.isLoaded() && c.getWeight() + aTruck.getWeight() <= Truck.MAX_WEIGHT) {
-                        aTruck.addWeight(c);
-                        c.setLoaded();
+                    if ( c.isLoaded() )
+                        continue;
+                        
+                    if (c.getWeight() + aTruck.getWeight() > Truck.MAX_WEIGHT) {
+                        aTruck = new Truck( this );
+                        this.trucks[ this.numOfTrucks++ ] = aTruck;
                     }
+                    
+                    aTruck.addWeight(c);
+                    c.setLoaded();
                 }
             }
         }
+        System.out.println( "Num of trucks used from base warehouse: " + this.numOfTrucks );
     }
     
     public boolean hasTrucksAvailable() {
@@ -90,7 +92,8 @@ public class Warehouse extends Vertex {
             return false;
     }
     
-    public void sendTrucks() {
+    public int sendTrucks() {
+        int totalWarehouseDistance = 0;
         for ( int i = 0; i < this.numOfTrucks; i++ ) {
             int distance = 0;
             Truck aTruck = this.trucks[ i ];
@@ -101,7 +104,9 @@ public class Warehouse extends Vertex {
             }
             distance += Vertex.distanceBetween( lastVertex, this ); //going back to Warehouse
             aTruck.setDistance( distance );
+            totalWarehouseDistance += distance;
         }
+        return totalWarehouseDistance;
     }
     
     public int getNumOfTrucks() {
