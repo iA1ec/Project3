@@ -11,6 +11,9 @@ public class Simulation {
         Simulation mySim = new Simulation();
         mySim.readInData("shops.txt", "warehouses1.txt");
         mySim.addEdges();
+        mySim.loadTrucks();
+        mySim.sendTrucks();
+        mySim.printTrucks();
         //mySim.getGraph().printGraph();
     }
     
@@ -108,13 +111,31 @@ public class Simulation {
      * A Method to load all of the trucks with the proper weights
      */
     public void loadTrucks() {
-        
-        for (int i=0; i<warehouses.length; i++) {
+            // loads trucks for all warehouses except for the base warehouse
+        for (int i=0; i<warehouses.length-1; i++) {
                 
-            while (warehouses[i].getNumOfTrucks() > 0) {
+            System.out.println( "Loading warehouse " + warehouses[i].getId() );
+            
+            while (warehouses[i].hasTrucksAvailable()) {
                 warehouses[i].loadTruck();
             }
             
+        }
+        
+            // fulfills all remaining unfulfilled shops by the base warehouse
+        Warehouse baseWarehouse = warehouses[ this.warehouses.length ];
+        baseWarehouse.fulfillRemainingShops();
+    }
+    
+    public void sendTrucks() {
+        for ( int i = 0; i < this.warehouses.length; i++ ) {
+            this.warehouses[ i ].sendTrucks();
+        }
+    }
+    
+    public void printTrucks() {
+        for ( int i = 0; i < this.warehouses.length; i++ ) {
+            System.out.println( this.warehouses[ i ] );
         }
     }
     

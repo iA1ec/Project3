@@ -1,12 +1,16 @@
 #BlueJ class context
-comment0.params=aShop\ weight
-comment0.target=Cargo(Shop,\ int)
-comment1.params=aCargo
-comment1.target=boolean\ equals(Cargo)
-comment2.params=
-comment2.target=boolean\ isLoaded()
+comment0.target=Cargo
+comment0.text=\n\ A\ Class\ to\ store\ a\ single\ cargo\n
+comment1.params=aShop\ weight
+comment1.target=Cargo(Shop,\ int)
+comment2.params=aCargo
+comment2.target=boolean\ equals(Cargo)
 comment3.params=
-comment3.target=void\ setLoaded()
+comment3.target=boolean\ isLoaded()
 comment4.params=
-comment4.target=int\ getWeight()
-numComments=5
+comment4.target=void\ setLoaded()
+comment5.params=
+comment5.target=int\ getWeight()
+comment6.params=
+comment6.target=Shop\ getDestination()
+numComments=7

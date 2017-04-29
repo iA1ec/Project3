@@ -10,6 +10,7 @@ import java.awt.Point;
 public class Shop extends Vertex
 {
     private ArrayList< Cargo > supplyList; // set of supplies the shop needs
+    private boolean satisfied; // keeps track of whether the shop needs any more supplies
     
     /**
      * Constructor to create a shop with the given id and point of location. Initializes the ArrayList of supplies as empty.
@@ -19,6 +20,7 @@ public class Shop extends Vertex
     public Shop( Point aLocation, String anId ) {
         super( anId, aLocation );
         this.supplyList = new ArrayList<Cargo>();
+        this.satisfied = false;
     }
     
     /**
@@ -68,19 +70,16 @@ public class Shop extends Vertex
             this.supplyList.add( new Cargo( this, s ) );
     }
     
-    public void removeSupplies( Cargo c ) {
-        for ( int i = 0; i < this.supplyList.size(); i++ ) {
-            if ( this.supplyList.get( i ).equals( c ) )
-                this.supplyList.remove( i );
-        }
-    }
-    
     public boolean isSatisfied() {
+        if ( this.satisfied )
+            return true;
+            
         for (int i=0; i<supplyList.size(); i++) {
             if (!supplyList.get(i).isLoaded())
                 return false;
         }
-        return true;
+        
+        return this.satisfied = true;
     }
      
     

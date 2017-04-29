@@ -25,9 +25,14 @@ public class Vertex
         if (position < 0)
             position = (-1 * position) - 1;
         
-        edges.add( position, anEdge );
+        this.edges.add( position, anEdge );
     }
     
+    public static int distanceBetween( Vertex v1, Vertex v2 ) {
+        int xDis = (int)Math.abs( v1.getLocation().getX() - v2.getLocation().getX() );
+        int yDis = (int)Math.abs( v1.getLocation().getY() - v2.getLocation().getY() );
+        return xDis + yDis;
+    }
     
     public Point getLocation() {
         return this.location;
