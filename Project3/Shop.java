@@ -74,4 +74,17 @@ public class Shop extends Vertex
                 this.supplyList.remove( i );
         }
     }
+    
+    public boolean isSatisfied() {
+        for (int i=0; i<supplyList.size(); i++) {
+            if (!supplyList.get(i).isLoaded())
+                return false;
+        }
+        return true;
+    }
+     
+    
+    public ArrayList<Cargo> getSupplyList() {
+        return supplyList;
+    }
 }
