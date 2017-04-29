@@ -21,6 +21,7 @@ public class Simulation {
     private Graph cityGraph;
     private Shop[] shops;
     private Warehouse[] warehouses;
+    private int totalDistanceTravelled;
     
     public Simulation() {
         cityGraph = new Graph();
@@ -113,8 +114,6 @@ public class Simulation {
     public void loadTrucks() {
             // loads trucks for all warehouses except for the base warehouse
         for (int i=0; i<warehouses.length-1; i++) {
-                
-            System.out.println( "Loading warehouse " + warehouses[i].getId() );
             
             while (warehouses[i].hasTrucksAvailable()) {
                 warehouses[i].loadTruck();
@@ -123,13 +122,14 @@ public class Simulation {
         }
         
             // fulfills all remaining unfulfilled shops by the base warehouse
-        Warehouse baseWarehouse = warehouses[ this.warehouses.length ];
+        Warehouse baseWarehouse = warehouses[ this.warehouses.length-1 ];
         baseWarehouse.fulfillRemainingShops();
     }
     
     public void sendTrucks() {
+        this.totalDistanceTravelled = 0;
         for ( int i = 0; i < this.warehouses.length; i++ ) {
-            this.warehouses[ i ].sendTrucks();
+            this.totalDistanceTravelled += this.warehouses[ i ].sendTrucks();
         }
     }
     
@@ -137,6 +137,7 @@ public class Simulation {
         for ( int i = 0; i < this.warehouses.length; i++ ) {
             System.out.println( this.warehouses[ i ] );
         }
+        System.out.println( "Total distance travelled by all trucks: " + this.totalDistanceTravelled );
     }
     
     public Graph getGraph() {
