@@ -15,7 +15,7 @@ public class Simulation {
         mySim.sendTrucks();
         mySim.printTrucks();
         System.out.println( "Number of items not loaded: " + mySim.numOfUnfulfilledSupplies() );
-        System.out.println( "All shops \"satisfied\": " + mySim.checkSatisfied() );
+        System.out.println( "All shops satisfied: " + mySim.checkSatisfied() );
         //mySim.getGraph().printGraph();
     }
     
@@ -125,7 +125,12 @@ public class Simulation {
         
             // fulfills all remaining unfulfilled shops by the base warehouse
         Warehouse baseWarehouse = warehouses[ this.warehouses.length-1 ];
-        baseWarehouse.fulfillRemainingShops();
+        try {
+            baseWarehouse.fulfillRemainingShops();
+        } catch ( Exception e ) {
+            System.out.println( e );
+            System.exit(1);
+        }
     }
     
     public void sendTrucks() {
@@ -136,10 +141,16 @@ public class Simulation {
     }
     
     public void printTrucks() {
+        int totalTrucks = 0;
+        int trucksFromBase = 0;
         for ( int i = 0; i < this.warehouses.length; i++ ) {
             System.out.println( this.warehouses[ i ] );
+            totalTrucks += this.warehouses[ i ].getNumOfTrucks();
+            if ( i == this.warehouses.length - 1 )
+                trucksFromBase = this.warehouses[ i ].getNumOfTrucks();
         }
-        System.out.println( "Total distance travelled by all trucks: " + this.totalDistanceTravelled );
+        System.out.println( "Total distance travelled by all " + totalTrucks + " trucks: " + this.totalDistanceTravelled );
+        System.out.println( "Trucks used from base warehouse: " + trucksFromBase  );
     }
     
     public int numOfUnfulfilledSupplies() {

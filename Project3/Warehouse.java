@@ -8,7 +8,7 @@ public class Warehouse extends Vertex {
     
     private int numOfTrucks;
     private Truck[] trucks;
-    public static final int MAX_DISTANCE = 100;
+    public static final int MAX_DISTANCE = 50;
     
     /**
      * A Constructor given an id, location, and number of trucks
@@ -54,8 +54,7 @@ public class Warehouse extends Vertex {
             if ( !(v instanceof Shop) )
                 continue;
             Shop s = (Shop)(start.getEdges().get(i).getEnd());
-            if ( !s.isSatisfied() && !aTruck.hasChecked( s ) && ( Vertex.distanceBetween( this, s ) < Warehouse.MAX_DISTANCE ) ) {
-            //if ( !s.isSatisfied() && !aTruck.hasChecked( s ) ) {
+            if ( !s.isSatisfied() && !aTruck.hasChecked( s ) && ( Vertex.distanceBetween( this, s ) <= Warehouse.MAX_DISTANCE ) ) {
                 return s;
             }
         }
@@ -75,35 +74,37 @@ public class Warehouse extends Vertex {
         return null; //all shops are satisfied
     }
     
-    public void fulfillRemainingShops() {
+    public void fulfillRemainingShops() throws IllegalArgumentException {
         Truck aTruck = new Truck( this );
         this.trucks[ this.numOfTrucks++ ] = aTruck;
         Vertex start = this;
-        Shop s = null;
+        Shop s = s = findClosestShopForBase( aTruck, start );
         while ( start != null ) {
             if ( aTruck.getWeight() > Truck.MAX_WEIGHT - Truck.CUT_OFF ) {
                     aTruck = new Truck( this );
                     this.trucks[ this.numOfTrucks++ ] = aTruck;
             }
             
-            s = findClosestShopForBase( aTruck, start );
-            if ( s != null ) {
-                ArrayList<Cargo> supplies = s.getSupplyList();
-                for (int i=0; i<supplies.size(); i++) {
-                    Cargo c = supplies.get(i);
-                    if (!c.isLoaded() && c.getWeight() + aTruck.getWeight() <= Truck.MAX_WEIGHT) {
-                        aTruck.addWeight(c);
-                        c.setLoaded();
-                    }
+            ArrayList<Cargo> supplies = s.getSupplyList();
+            for (int i=0; i<supplies.size(); i++) {
+                Cargo c = supplies.get(i);
+                if (!c.isLoaded() && c.getWeight() + aTruck.getWeight() <= Truck.MAX_WEIGHT) {
+                    aTruck.addWeight(c);
+                    c.setLoaded();
                 }
-            } else {
+            }
+            s = findClosestShopForBase( aTruck, start );
+            
+            if ( s == null) {
                 Shop fulfillmentCheck = findClosestShopForBase( new Truck( this ), this );
-                if ( fulfillmentCheck != null ) {
+                if ( fulfillmentCheck != null && this.numOfTrucks < this.trucks.length ) {
                     aTruck = new Truck( this );
                     this.trucks[ this.numOfTrucks++ ] = aTruck;
                     s = fulfillmentCheck;
-                } else {
+                } else if ( fulfillmentCheck == null ) {
                     return;
+                } else {
+                    throw new IllegalArgumentException( "Not enough trucks at base warehouse. Try lowering optimization." );
                 }
             }
             

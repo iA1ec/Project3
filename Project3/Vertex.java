@@ -29,6 +29,9 @@ public class Vertex
     }
     
     public static int distanceBetween( Vertex v1, Vertex v2 ) {
+        if ( v1 == v2 )
+            return 0;
+            
         int xDis = (int)Math.abs( v1.getLocation().getX() - v2.getLocation().getX() );
         int yDis = (int)Math.abs( v1.getLocation().getY() - v2.getLocation().getY() );
         return xDis + yDis;
