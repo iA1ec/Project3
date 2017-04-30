@@ -8,11 +8,11 @@ public class Truck {
     
     private Warehouse baseWarehouse; //the base warehouse of the Truck
     private ArrayList<Cargo> weights; //The weight that the truck is carrying
-    private HashSet< Shop > shopsVisited; // list of shops visited by the truck
+    private HashSet< Shop > shopsChecked; // list of shops visited by the truck
     private int totalWeight; //The total weight in the truck
     private int distance; //total distance travelled by truck
     public static final int MAX_WEIGHT = 500; //The maximum weight a truck can hold
-    public static final int CUT_OFF = 25; //The truck will stop being loaded if there is only 10 units of space left
+    public static final int CUT_OFF = 20; //The truck will stop being loaded if there is only 10 units of space left
     
     /**
      * A Constructor only given a base warehouse, initializes weight to 0
@@ -20,7 +20,7 @@ public class Truck {
     public Truck(Warehouse aWarehouse) {
         baseWarehouse = aWarehouse;
         weights = new ArrayList<Cargo>();
-        shopsVisited = new HashSet< Shop >();
+        shopsChecked = new HashSet< Shop >();
         totalWeight = 0;
         distance = 0;
     }
@@ -35,12 +35,15 @@ public class Truck {
             
         weights.add(c);
         totalWeight += c.getWeight();
-        if ( !shopsVisited.contains( c.getDestination() ) )
-            this.shopsVisited.add( c.getDestination() );
+        if ( !shopsChecked.contains( c.getDestination() ) )
+            this.shopsChecked.add( c.getDestination() );
     }
     
-    public boolean hasVisited( Vertex v ) {
-        return this.shopsVisited.contains( v );
+    public boolean hasChecked( Shop v ) {
+        boolean check = this.shopsChecked.contains( v );
+        if ( !check )
+            this.shopsChecked.add( v );
+        return check;
     }
     
     public int getWeight() {
