@@ -14,6 +14,8 @@ public class Simulation {
         mySim.loadTrucks();
         mySim.sendTrucks();
         mySim.printTrucks();
+        System.out.println( "Number of items not loaded: " + mySim.numOfUnfulfilledSupplies() );
+        System.out.println( "All shops \"satisfied\": " + mySim.checkSatisfied() );
         //mySim.getGraph().printGraph();
     }
     
@@ -138,6 +140,30 @@ public class Simulation {
             System.out.println( this.warehouses[ i ] );
         }
         System.out.println( "Total distance travelled by all trucks: " + this.totalDistanceTravelled );
+    }
+    
+    public int numOfUnfulfilledSupplies() {
+        int numOfUnfulfilled = 0;
+        for ( int i = 0; i < this.shops.length; i++ ) {
+            Shop aShop = this.shops[ i ];
+            for ( Cargo c : aShop.getSupplyList() ) {
+                if ( !c.isLoaded() ) {
+                    numOfUnfulfilled++;
+                }
+            }
+        }
+        
+        return numOfUnfulfilled;
+    }
+    
+    public boolean checkSatisfied() {
+        for ( int i = 0; i < this.shops.length; i++ ) {
+            Shop aShop = this.shops[ i ];
+            if ( !aShop.isSatisfied() )
+                return false;
+        }
+        
+        return true;
     }
     
     public Graph getGraph() {

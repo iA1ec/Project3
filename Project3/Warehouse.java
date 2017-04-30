@@ -8,7 +8,7 @@ public class Warehouse extends Vertex {
     
     private int numOfTrucks;
     private Truck[] trucks;
-    public static final int MAX_DISTANCE = 50;
+    public static final int MAX_DISTANCE = 100;
     
     /**
      * A Constructor given an id, location, and number of trucks
@@ -55,6 +55,7 @@ public class Warehouse extends Vertex {
                 continue;
             Shop s = (Shop)(start.getEdges().get(i).getEnd());
             if ( !s.isSatisfied() && !aTruck.hasChecked( s ) && ( Vertex.distanceBetween( this, s ) < Warehouse.MAX_DISTANCE ) ) {
+            //if ( !s.isSatisfied() && !aTruck.hasChecked( s ) ) {
                 return s;
             }
         }
@@ -78,9 +79,15 @@ public class Warehouse extends Vertex {
         Truck aTruck = new Truck( this );
         this.trucks[ this.numOfTrucks++ ] = aTruck;
         Vertex start = this;
+        Shop s = null;
         while ( start != null ) {
-            Shop s = (Shop)findClosestShopForBase( aTruck, start );
-            if ( s != null &&  aTruck.getWeight() < Truck.MAX_WEIGHT - Truck.CUT_OFF ) {
+            if ( aTruck.getWeight() > Truck.MAX_WEIGHT - Truck.CUT_OFF ) {
+                    aTruck = new Truck( this );
+                    this.trucks[ this.numOfTrucks++ ] = aTruck;
+            }
+            
+            s = findClosestShopForBase( aTruck, start );
+            if ( s != null ) {
                 ArrayList<Cargo> supplies = s.getSupplyList();
                 for (int i=0; i<supplies.size(); i++) {
                     Cargo c = supplies.get(i);
@@ -90,12 +97,16 @@ public class Warehouse extends Vertex {
                     }
                 }
             } else {
-                if ( findClosestShop( new Truck( this ), start ) != null ) {
+                Shop fulfillmentCheck = findClosestShopForBase( new Truck( this ), this );
+                if ( fulfillmentCheck != null ) {
                     aTruck = new Truck( this );
                     this.trucks[ this.numOfTrucks++ ] = aTruck;
-                    s = (Shop)findClosestShopForBase( aTruck, start );
+                    s = fulfillmentCheck;
+                } else {
+                    return;
                 }
             }
+            
             start = s;
         }
         System.out.println( "Num of trucks used from base warehouse: " + this.numOfTrucks );

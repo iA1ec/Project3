@@ -41,7 +41,8 @@ public class Truck {
     
     public boolean hasChecked( Shop v ) {
         boolean check = this.shopsChecked.contains( v );
-        this.shopsChecked.add( v );
+        if ( !check )
+            this.shopsChecked.add( v );
         return check;
     }
     
