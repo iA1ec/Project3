@@ -2,41 +2,43 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 /**
- * A Class to represent a Warehouse with many trucks that has shop supplies
+ * A Class to represent a Warehouse with many trucks
  */
 public class Warehouse extends Vertex implements Comparable< Warehouse >{
     
-    private int numOfTrucks;
-    private Truck[] trucks;
-    public static final int MAX_DISTANCE = 50;
+    private int numOfTrucks; //The number of trucks that have been initialized at this warehouse
+    private Truck[] trucks; //The actual truck objects from this warehouse
+    public static final int MAX_DISTANCE = 50; //The maximum distance from the warehouse a truck can travel, except the base warehouse
     
     /**
-     * A Constructor given an id, location, and number of trucks
+     * A Constructor given an id, location, and the maximum number of trucks
      */
-    public Warehouse(String id, Point location, int numOfTrucks) {
+    public Warehouse(String id, Point location, int maxNumOfTrucks) {
         super(id, location);
-        this.trucks = new Truck[ numOfTrucks ];
+        this.trucks = new Truck[ maxNumOfTrucks ];
         this.numOfTrucks = 0;
     }
     
     /**
-     * A Method to add a truck to the queue of trucks
-     * @param a  The number of trucks to be added
+     * A Method to load a truck in this warehouse, preparing for deliveries
+     * This method is not used on the base warehouse
      */
-    public void addTrucks(int a) {
-        numOfTrucks = a;
-    }
-    
     public void loadTruck() {
+        
         Truck aTruck = new Truck(this);
         this.trucks[ this.numOfTrucks++ ] = aTruck;
         
         Vertex start = this;
+        
+            // Adding cargo to the truck until there it is full
         while (aTruck.getWeight() < Truck.MAX_WEIGHT - Truck.CUT_OFF) {
             Shop s = findClosestShop( aTruck, start );
             if ( s == null )
-                break;
+                break; //all shops are satisfied
+                
             ArrayList<Cargo> supplies = s.getSupplyList();
+            
+                // Load as many supplies from this shop as possible
             for (int i=0; i<supplies.size(); i++) {
                 Cargo c = supplies.get(i);
                 if (!c.isLoaded() && c.getWeight() + aTruck.getWeight() <= Truck.MAX_WEIGHT) {
@@ -48,41 +50,75 @@ public class Warehouse extends Vertex implements Comparable< Warehouse >{
         }
     }
     
+    
+    /**
+     * A Method to find the closest shop from a given vertex that is not already satisfied
+     * This method is not used for the base warehouse
+     * @param  aTruck  The current truck that is being filled
+     * @param  start   The Vertex (Shop or Warehouse) that the method starts at
+     * @return Shop    Returns the Shop closest to the given vertex that is not already satisfied
+     */
     public Shop findClosestShop( Truck aTruck, Vertex start ) {
+            // Going through all of the edges of the start vertex, which are ordered by length
         for (int i=0; i < start.getEdges().size(); i++) {
             Vertex v = start.getEdges().get( i ).getEnd();
+            
             if ( !(v instanceof Shop) )
                 continue;
+                
             Shop s = (Shop)(start.getEdges().get(i).getEnd());
+            
+                // Returns the Shop if it is not satisfied, if it has not been checked already, and if it is not too far away
             if ( !s.isSatisfied() && !aTruck.hasChecked( s ) && ( Vertex.distanceBetween( this, s ) <= Warehouse.MAX_DISTANCE ) ) {
                 return s;
             }
         }
+        
         return null; //all shops are satisfied
     }
     
+    
+    /**
+     * A Method to find the closest shop from the base warehouse
+     * Similar to findClosestShop, except doesn't check distance from base warehouse
+     * @param  aTruck  The current truck that is being filled
+     * @param  start   The Vertex (Shop or Warehouse) that the method starts at
+     * @return Shop    Returns the Shop closest to the given vertex that is not already satisfied
+     */
     public Shop findClosestShopForBase( Truck aTruck, Vertex start ) {
+            // Going through all of the edges of the start vertex, which are ordered by length
         for (int i=0; i < start.getEdges().size(); i++) {
             Vertex v = start.getEdges().get( i ).getEnd();
+            
             if ( !(v instanceof Shop) )
                 continue;
+                
             Shop s = (Shop)(start.getEdges().get(i).getEnd());
+            
+                // Returns the Shop if it is not satisfied, if it has not been checked already, and if it is not too far away
             if ( !s.isSatisfied() && !aTruck.hasChecked( s ) ) {
                 return s;
             }
         }
+        
         return null; //all shops are satisfied
     }
     
+    
+    /**
+     * A Method to use the base warehouse to fulfill all remaining shops
+     * @throw IllegalArgumentException
+     */
     public void fulfillRemainingShops() throws IllegalArgumentException {
         Truck aTruck = new Truck( this );
         this.trucks[ this.numOfTrucks++ ] = aTruck;
         Vertex start = this;
         Shop s = s = findClosestShopForBase( aTruck, start );
-        while ( start != null ) {
+        
+        while ( true ) {
             if ( aTruck.getWeight() > Truck.MAX_WEIGHT - Truck.CUT_OFF ) {
-                    aTruck = new Truck( this );
-                    this.trucks[ this.numOfTrucks++ ] = aTruck;
+                aTruck = new Truck( this );
+                this.trucks[ this.numOfTrucks++ ] = aTruck;
             }
             
             ArrayList<Cargo> supplies = s.getSupplyList();
@@ -110,9 +146,13 @@ public class Warehouse extends Vertex implements Comparable< Warehouse >{
             
             start = s;
         }
-        System.out.println( "Num of trucks used from base warehouse: " + this.numOfTrucks );
     }
     
+    
+    /**
+     * A Method to check if the Warehouse can create an more trucks
+     * @return boolean  Returns true if the warehouse can make more trucks, else false
+     */
     public boolean hasTrucksAvailable() {
         if ( this.numOfTrucks < this.trucks.length )
             return true;
@@ -120,26 +160,42 @@ public class Warehouse extends Vertex implements Comparable< Warehouse >{
             return false;
     }
     
+    
+    /**
+     * A Method to send the trucks from this warehouse out to make deliveries
+     * @return int  Returns the total distance travelled by trucks from this warehouse
+     */
     public int sendTrucks() {
         int totalWarehouseDistance = 0;
+        
         for ( int i = 0; i < this.numOfTrucks; i++ ) {
             int distance = 0;
             Truck aTruck = this.trucks[ i ];
             Vertex lastVertex = this;
+            
             for ( Cargo c : aTruck.getCargos() ) {
                 distance += Vertex.distanceBetween( lastVertex, c.getDestination() );
                 lastVertex = c.getDestination();
             }
+            
             distance += Vertex.distanceBetween( lastVertex, this ); //going back to Warehouse
             aTruck.setDistance( distance );
             totalWarehouseDistance += distance;
         }
+        
         return totalWarehouseDistance;
     }
     
+    
+    /**
+     * A Method to get the number of trucks at this warehouse
+     * @return int  Returns the number of trucks from this warehouse
+     */
     public int getNumOfTrucks() {
         return numOfTrucks;
     }
+    
+    
     
     public int compareTo( Warehouse second ) {
         int thisDistance = (int)((this.location.getX() - 1) + (this.location.getY() - 1));
@@ -147,6 +203,11 @@ public class Warehouse extends Vertex implements Comparable< Warehouse >{
         return secondDistance - thisDistance;
     }
     
+    
+    /**
+     * A toString method for printing out a String
+     * @return String  Returns the warehouse represented as a string
+     */
     public String toString() {
         String print = new String();
         for ( int i = 0; i < this.numOfTrucks; i++ ) {

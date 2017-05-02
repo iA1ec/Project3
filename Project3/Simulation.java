@@ -9,7 +9,7 @@ public class Simulation {
     
     public static void main(String[] args) {
         Simulation mySim = new Simulation();
-        mySim.readInData("shops.txt", "warehouses1.txt");
+        mySim.readInData("shops.txt", "warehouses2.txt");
         //mySim.sortWarehouses();
         mySim.addEdges();
         mySim.loadTrucks();
@@ -102,6 +102,14 @@ public class Simulation {
             cityGraph.addVertex(aWarehouse);
             warehouses[warehouseIndex++] = aWarehouse;
         }
+        
+        //reverseSortWarehouses();
+        //for (Warehouse w : warehouses) {
+            //System.out.println(w.getId());
+            //cityGraph.addVertex(w);
+        //}
+        
+        
     }
     
     /**
@@ -117,6 +125,18 @@ public class Simulation {
                 warehouses[ j ] = warehouses[ j - 1 ];
             warehouses[ j ] = tmp;
         }
+    }
+    
+    public void reverseSortWarehouses() {
+       for( int p = 1; p < warehouses.length - 1; p++ )
+       {
+            Warehouse tmp = warehouses[ p ];
+            int j = p;
+
+            for( ; j > 0 && tmp.compareTo( warehouses[ j - 1 ] ) > 0; j-- )
+                warehouses[ j ] = warehouses[ j - 1 ];
+            warehouses[ j ] = tmp;
+       } 
     }
     
     /**
