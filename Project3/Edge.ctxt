@@ -1,14 +1,19 @@
 #BlueJ class context
 comment0.target=Edge
-comment0.text=\n\ Write\ a\ description\ of\ class\ Edge\ here.\n\n\ @author\ Alec\ Flanigan\n\ @version\ 4/25/2017\n
+comment0.text=\n\ Represents\ an\ edge\ between\ to\ vertices\n
 comment1.params=s\ e
 comment1.target=Edge(Vertex,\ Vertex)
+comment1.text=\n\ Creates\ an\ edge\ given\ two\ vertices\n\ @param\ s\ starting\ vertex\n\ @param\ e\ ending\ vertex\n
 comment2.params=
 comment2.target=Vertex\ getStart()
+comment2.text=\n\ Returns\ the\ starting\ vertex\ of\ the\ edge\n\ @return\ start\ vertex\n
 comment3.params=
 comment3.target=Vertex\ getEnd()
+comment3.text=\n\ Returns\ the\ ending\ vertex\ of\ the\ edge\n\ @return\ end\ vertex\n
 comment4.params=
 comment4.target=int\ getDistance()
+comment4.text=\n\ Returns\ the\ distance\ between\ the\ start\ and\ end\ vertex\n\ @return\ the\ distance\ of\ the\ edge\n
 comment5.params=second
 comment5.target=int\ compareTo(Edge)
+comment5.text=\n\ Compares\ two\ edges\ by\ their\ associated\ distances\n\ @param\ \ second\ second\ edge\ to\ compare\ against\n\ @return\ the\ distance\ of\ this\ edge\ minus\ the\ distance\ of\ the\ second\n
 numComments=6

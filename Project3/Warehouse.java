@@ -107,20 +107,23 @@ public class Warehouse extends Vertex implements Comparable< Warehouse >{
     
     /**
      * A Method to use the base warehouse to fulfill all remaining shops
-     * @throw IllegalArgumentException
+     * @throws Exception if the warehouse runs out of trucks
      */
-    public void fulfillRemainingShops() throws IllegalArgumentException {
+    public void fulfillRemainingShops() throws Exception {
         Truck aTruck = new Truck( this );
         this.trucks[ this.numOfTrucks++ ] = aTruck;
         Vertex start = this;
         Shop s = s = findClosestShopForBase( aTruck, start );
         
+            // runs a loop until the warehouse runs out of trucks or all shops are satisfied
         while ( true ) {
+                // creates a new truck if the current truck is past the weight cut-off
             if ( aTruck.getWeight() > Truck.MAX_WEIGHT - Truck.CUT_OFF ) {
                 aTruck = new Truck( this );
                 this.trucks[ this.numOfTrucks++ ] = aTruck;
             }
             
+                // adds weight from the current shop to the truck
             ArrayList<Cargo> supplies = s.getSupplyList();
             for ( int i=0; i<supplies.size(); i++ ) {
                 Cargo c = supplies.get( i );
@@ -131,16 +134,23 @@ public class Warehouse extends Vertex implements Comparable< Warehouse >{
             }
             s = findClosestShopForBase( aTruck, start );
             
+                // if the truck has checked to visit all shops
             if ( s == null) {
                 Shop fulfillmentCheck = findClosestShopForBase( new Truck( this ), this );
+                
+                    // creates a new truck if the current truck has checked all shops and not all shops have been satisfied
                 if ( fulfillmentCheck != null && this.numOfTrucks < this.trucks.length ) {
                     aTruck = new Truck( this );
                     this.trucks[ this.numOfTrucks++ ] = aTruck;
                     s = fulfillmentCheck;
+                    
+                    // if all shops have been satisfied, return
                 } else if ( fulfillmentCheck == null ) {
                     return;
+                    
+                    // if the warehouse runs out of trucks, throw an expection
                 } else {
-                    throw new IllegalArgumentException( "Not enough trucks at base warehouse. Try lowering optimization." );
+                    throw new Exception( "Not enough trucks at base warehouse. Try lowering optimization." );
                 }
             }
             

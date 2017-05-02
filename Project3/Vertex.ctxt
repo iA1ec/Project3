@@ -1,18 +1,25 @@
 #BlueJ class context
 comment0.target=Vertex
-comment0.text=\n\ Write\ a\ description\ of\ class\ Vertex\ here.\n\n\ @author\ Alec\ Flanigan\n\ @version\ 4/25/2017\n
+comment0.text=\n\ Represents\ a\ single\ vertex\n
 comment1.params=anId\ aLocation
 comment1.target=Vertex(java.lang.String,\ java.awt.Point)
+comment1.text=\n\ Creates\ a\ new\ vertex\ given\ an\ id\ and\ a\ location\n\ @param\ anId\ id\ of\ the\ vertex\n\ @param\ aLocation\ location\ of\ the\ vertex\ represented\ by\ the\ point\ class\n
 comment2.params=anEdge
 comment2.target=void\ addEdge(Edge)
+comment2.text=\n\ Adds\ a\ new\ edge\ to\ the\ vertex\n\ @param\ anEdge\ edge\ to\ add\ to\ the\ vertex\n
 comment3.params=v1\ v2
 comment3.target=int\ distanceBetween(Vertex,\ Vertex)
+comment3.text=\n\ Calculates\ the\ total\ distance\ between\ two\ vertices\n\ @param\ v1\ first\ vertex\n\ @param\ v2\ second\ vertex\n\ @return\ distance\ between\ the\ two\ vertices\n
 comment4.params=
 comment4.target=java.awt.Point\ getLocation()
+comment4.text=\n\ Returns\ the\ location\ of\ the\ vertex\n\ @return\ location\ of\ the\ vertex\n
 comment5.params=
 comment5.target=java.lang.String\ getId()
+comment5.text=\n\ Returns\ the\ id\ of\ the\ vertex\n\ @return\ id\ of\ the\ vertex\n
 comment6.params=
 comment6.target=java.util.ArrayList\ getEdges()
+comment6.text=\n\ Returns\ a\ list\ of\ all\ the\ edges\ associated\ with\ the\ vertex\n\ @return\ array\ list\ of\ edges\n
 comment7.params=
 comment7.target=void\ printEdges()
+comment7.text=\n\ Prints\ all\ of\ the\ edges\ to\ the\ terminal\n
 numComments=8

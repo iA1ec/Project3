@@ -1,14 +1,19 @@
 #BlueJ class context
 comment0.target=Graph
-comment0.text=\n\ A\ Class\ for\ a\ graph\ that\ represents\ the\ coffee\ shops\ are\ warehouses\n
+comment0.text=\n\ A\ Class\ for\ a\ graph\ that\ represents\ the\ coffee\ shops\ and\ warehouses\n
 comment1.params=
 comment1.target=Graph()
+comment1.text=\n\ Creates\ a\ new\ graph\ with\ no\ vertices\n
 comment2.params=aVertex
 comment2.target=void\ addVertex(Vertex)
+comment2.text=\n\ Adds\ a\ new\ vertex\ to\ the\ graph\n\ @param\ aVertex\ new\ vertex\n
 comment3.params=
 comment3.target=void\ addEdges()
+comment3.text=\n\ Adds\ all\ edges\ between\ every\ vertex\ to\ each\ shop\n
 comment4.params=
 comment4.target=void\ printGraph()
+comment4.text=\n\ Prints\ the\ info\ of\ the\ graph\ to\ the\ terminal\n
 comment5.params=
 comment5.target=java.util.ArrayList\ getVertices()
+comment5.text=\n\ Returns\ an\ array\ list\ of\ all\ vertices\ in\ the\ graph\n
 numComments=6
