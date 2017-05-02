@@ -1,21 +1,31 @@
 import java.util.*;
 
 /**
- * A Class for a graph that represents the coffee shops are warehouses
+ * A Class for a graph that represents the coffee shops and warehouses
  */
 public class Graph {
     
-    private ArrayList<Vertex> vertices; 
-    private int size; //The number of vertices
+    private ArrayList<Vertex> vertices;         // list of verices in the graph
+    private int size;                           //The number of vertices
     
+    /**
+     * Creates a new graph with no vertices
+     */
     public Graph() {
         vertices = new ArrayList<Vertex>();
     }
     
+    /**
+     * Adds a new vertex to the graph
+     * @param aVertex new vertex
+     */
     public void addVertex(Vertex aVertex) {
         vertices.add(aVertex);
     }
     
+    /**
+     * Adds all edges between every vertex to each shop
+     */
     public void addEdges() {
         for (int i=0; i<vertices.size(); i++) {
                 
@@ -27,6 +37,9 @@ public class Graph {
         }
     }
     
+    /**
+     * Prints the info of the graph to the terminal
+     */
     public void printGraph() {
         for (Vertex v : vertices) {
             if (v instanceof Shop) {
@@ -43,6 +56,9 @@ public class Graph {
         }
     }
     
+    /**
+     * Returns an array list of all vertices in the graph
+     */
     public ArrayList<Vertex> getVertices() {
         return vertices;
     }
