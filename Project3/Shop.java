@@ -2,10 +2,7 @@ import java.util.ArrayList;
 import java.awt.Point;
 
 /**
- * Write a description of class Shop here.
- *
- * @author Alec Flanigan
- * @version 4/20/2017
+ * A Class to represent a Shop
  */
 public class Shop extends Vertex
 {
@@ -70,6 +67,10 @@ public class Shop extends Vertex
             this.supplyList.add( new Cargo( this, s ) );
     }
     
+    /**
+     * A Method to test if the shop is satisfied, meaning all the shops cargo's have been loaded
+     * @return boolean  Returns true is all the cargos of a shop are loaded, else false
+     */
     public boolean isSatisfied() {
         if ( this.satisfied )
             return true;
@@ -82,8 +83,11 @@ public class Shop extends Vertex
         return this.satisfied = true;
     }
      
-    
-    public ArrayList<Cargo> getSupplyList() {
+    /**
+     * A Method to get the supply list of the shop
+     * @return ArrayList< Cargo >  Returns the list of cargos that this shop needs
+     */
+    public ArrayList< Cargo > getSupplyList() {
         return supplyList;
     }
 }
