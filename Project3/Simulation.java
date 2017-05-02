@@ -21,11 +21,14 @@ public class Simulation {
     }
     
     
-    private Graph cityGraph;
-    private Shop[] shops;
-    private Warehouse[] warehouses;
-    private int totalDistanceTravelled;
+    private Graph cityGraph; //The Graph representing the city
+    private Shop[] shops; //all the shops in the city
+    private Warehouse[] warehouses; //all the warehouses in the city
+    private int totalDistanceTravelled; //The total distance travelled by all the trucks
     
+    /**
+     * A Constructor for the Simulation
+     */
     public Simulation() {
         cityGraph = new Graph();
     }
@@ -56,30 +59,20 @@ public class Simulation {
         warehouses = new Warehouse[numOfWarehouses];
         
         
-        
-        //int minCargo = 500; //Finding the minimum weight of a cargo
-        
         //Reading in the shops
         while (inputShops.hasNextLine()) {
             String aLine = inputShops.nextLine();
             String[] parts = aLine.split("[\\s\\.,\\(\\)\\:]+");
-            
-            //for (String s : parts)
-                //System.out.println(s);
-                
+              
             Point location = new Point(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
             
             String[] cargo = new String[parts.length-3];
             
             
-            for (int i=3; i<parts.length; i++) {
+            for (int i=3; i<parts.length; i++) 
                 cargo[i-3] = parts[i];
-                //if (Integer.parseInt(parts[i]) < minCargo)
-                    //minCargo = Integer.parseInt(parts[i]);
-            }
             
-            
-            
+
             Shop aShop = new Shop(parts[0], location, cargo);
             cityGraph.addVertex(aShop); 
             shops[shopIndex++] = aShop;
@@ -91,8 +84,6 @@ public class Simulation {
         while (inputWarehouses.hasNextLine()) {
             String aLine = inputWarehouses.nextLine();
             String[] parts = aLine.split("[\\s\\.,\\(\\)\\:]+");
-            //for (String s : parts)
-                //System.out.println(s);
             
             Point location = new Point(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
             
@@ -103,41 +94,10 @@ public class Simulation {
             warehouses[warehouseIndex++] = aWarehouse;
         }
         
-        //reverseSortWarehouses();
-        //for (Warehouse w : warehouses) {
-            //System.out.println(w.getId());
-            //cityGraph.addVertex(w);
-        //}
-        
         
     }
     
-    /**
-     * Sorts warehouses in order from farthest from the base warehouse to closest
-     */
-    public void sortWarehouses() {
-        for( int p = 1; p < warehouses.length; p++ )
-        {
-            Warehouse tmp = warehouses[ p ];
-            int j = p;
-
-            for( ; j > 0 && tmp.compareTo( warehouses[ j - 1 ] ) < 0; j-- )
-                warehouses[ j ] = warehouses[ j - 1 ];
-            warehouses[ j ] = tmp;
-        }
-    }
     
-    public void reverseSortWarehouses() {
-       for( int p = 1; p < warehouses.length - 1; p++ )
-       {
-            Warehouse tmp = warehouses[ p ];
-            int j = p;
-
-            for( ; j > 0 && tmp.compareTo( warehouses[ j - 1 ] ) > 0; j-- )
-                warehouses[ j ] = warehouses[ j - 1 ];
-            warehouses[ j ] = tmp;
-       } 
-    }
     
     /**
      * A Method to add an edge from all vertices to all shops in the graph
@@ -146,8 +106,9 @@ public class Simulation {
         cityGraph.addEdges();
     }
     
+    
     /**
-     * A Method to load all of the trucks with the proper weights
+     * A Method to load all of the trucks to prepare for deliveries
      */
     public void loadTrucks() {
             // loads trucks for all warehouses except for the base warehouse
@@ -169,6 +130,11 @@ public class Simulation {
         }
     }
     
+    
+    /**
+     * A Method to send all of the trucks out to make deliveries
+     * Also calculates the total distance travelled
+     */
     public void sendTrucks() {
         this.totalDistanceTravelled = 0;
         for ( int i = 0; i < this.warehouses.length; i++ ) {
@@ -176,6 +142,10 @@ public class Simulation {
         }
     }
     
+    
+    /**
+     * A Method to print out all of the trucks
+     */
     public void printTrucks() {
         int totalTrucks = 0;
         int trucksFromBase = 0;
@@ -189,6 +159,11 @@ public class Simulation {
         System.out.println( "Trucks used from base warehouse: " + trucksFromBase  );
     }
     
+    
+    /**
+     * A Method to check if all of the cargos are delivered
+     * @return int  Returns the number of cargo's that aren't delivered
+     */
     public int numOfUnfulfilledSupplies() {
         int numOfUnfulfilled = 0;
         for ( int i = 0; i < this.shops.length; i++ ) {
@@ -203,6 +178,11 @@ public class Simulation {
         return numOfUnfulfilled;
     }
     
+    
+    /**
+     * A method to check if all shops have been fulfilled
+     * @return boolean  returns true if all shops are fulfilled, else false
+     */
     public boolean checkSatisfied() {
         for ( int i = 0; i < this.shops.length; i++ ) {
             Shop aShop = this.shops[ i ];
@@ -213,6 +193,11 @@ public class Simulation {
         return true;
     }
     
+    
+    /**
+     * A Method to return the graph of the city
+     * @return Graph  Returns the graph of the city
+     */
     public Graph getGraph() {
         return cityGraph;
     }
