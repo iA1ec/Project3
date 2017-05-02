@@ -10,6 +10,7 @@ public class Simulation {
     public static void main(String[] args) {
         Simulation mySim = new Simulation();
         mySim.readInData("shops.txt", "warehouses1.txt");
+        //mySim.sortWarehouses();
         mySim.addEdges();
         mySim.loadTrucks();
         mySim.sendTrucks();
@@ -100,6 +101,21 @@ public class Simulation {
             Warehouse aWarehouse = new Warehouse(parts[0], location, numOfTrucks);
             cityGraph.addVertex(aWarehouse);
             warehouses[warehouseIndex++] = aWarehouse;
+        }
+    }
+    
+    /**
+     * Sorts warehouses in order from farthest from the base warehouse to closest
+     */
+    public void sortWarehouses() {
+        for( int p = 1; p < warehouses.length; p++ )
+        {
+            Warehouse tmp = warehouses[ p ];
+            int j = p;
+
+            for( ; j > 0 && tmp.compareTo( warehouses[ j - 1 ] ) < 0; j-- )
+                warehouses[ j ] = warehouses[ j - 1 ];
+            warehouses[ j ] = tmp;
         }
     }
     

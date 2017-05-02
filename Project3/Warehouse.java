@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * A Class to represent a Warehouse with many trucks that has shop supplies
  */
-public class Warehouse extends Vertex {
+public class Warehouse extends Vertex implements Comparable< Warehouse >{
     
     private int numOfTrucks;
     private Truck[] trucks;
@@ -33,7 +33,7 @@ public class Warehouse extends Vertex {
         
         Vertex start = this;
         while (aTruck.getWeight() < Truck.MAX_WEIGHT - Truck.CUT_OFF) {
-            Shop s = (Shop)findClosestShop( aTruck, start );
+            Shop s = findClosestShop( aTruck, start );
             if ( s == null )
                 break;
             ArrayList<Cargo> supplies = s.getSupplyList();
@@ -86,10 +86,10 @@ public class Warehouse extends Vertex {
             }
             
             ArrayList<Cargo> supplies = s.getSupplyList();
-            for (int i=0; i<supplies.size(); i++) {
-                Cargo c = supplies.get(i);
-                if (!c.isLoaded() && c.getWeight() + aTruck.getWeight() <= Truck.MAX_WEIGHT) {
-                    aTruck.addWeight(c);
+            for ( int i=0; i<supplies.size(); i++ ) {
+                Cargo c = supplies.get( i );
+                if ( !c.isLoaded() && c.getWeight() + aTruck.getWeight() <= Truck.MAX_WEIGHT ) {
+                    aTruck.addWeight( c );
                     c.setLoaded();
                 }
             }
@@ -139,6 +139,12 @@ public class Warehouse extends Vertex {
     
     public int getNumOfTrucks() {
         return numOfTrucks;
+    }
+    
+    public int compareTo( Warehouse second ) {
+        int thisDistance = (int)((this.location.getX() - 1) + (this.location.getY() - 1));
+        int secondDistance = (int)((second.location.getX() - 1) + (second.location.getY() - 1));
+        return secondDistance - thisDistance;
     }
     
     public String toString() {
