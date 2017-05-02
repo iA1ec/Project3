@@ -59,7 +59,7 @@ public class Truck {
     }
     
     public String toString() {
-        String print = "Truck comes from warehouse # " + this.baseWarehouse.getId() + " Distance Travelled: " + this.distance + "\t Drop offs: ";
+        String print = "Truck comes from warehouse # " + this.baseWarehouse.getId() + " \t Distance Travelled: " + this.distance + " \t Total Weight: " + this.totalWeight + " \t Drop offs: ";
         for ( Cargo c : this.weights ) {
             print += "Shop " + c.getDestination().getId() + " - " + c.getWeight() + ", ";
         }
