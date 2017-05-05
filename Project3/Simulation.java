@@ -9,7 +9,7 @@ public class Simulation {
     
     public static void main(String[] args) {
         Simulation mySim = new Simulation();
-        mySim.readInData("shops.txt", "warehouses1.txt");
+        mySim.readInData( args[0], args[1]);
         mySim.addEdges();
         mySim.loadTrucks();
         mySim.sendTrucks();
