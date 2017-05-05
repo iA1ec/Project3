@@ -6,7 +6,6 @@ import java.util.*;
 public class Graph {
     
     private ArrayList<Vertex> vertices;         // list of verices in the graph
-    private int size;                           //The number of vertices
     
     /**
      * Creates a new graph with no vertices

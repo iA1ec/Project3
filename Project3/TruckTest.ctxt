@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=TruckTest
+comment0.text=\n\ The\ test\ class\ TruckTest.\n
+comment1.params=
+comment1.target=void\ testTruckCreation()
+comment2.params=
+comment2.target=void\ testTruckHasVisited()
+comment3.params=
+comment3.target=void\ testTruckAddWeight()
+comment4.params=
+comment4.target=void\ testTruckAddWeightMultiple()
+numComments=5

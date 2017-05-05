@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=WarehouseTest
+comment0.text=\n\ The\ test\ class\ WarehouseTest.\n
+comment1.params=
+comment1.target=void\ testWarehouseCreation()
+comment2.params=
+comment2.target=void\ testWarehouseFindClosestShop()
+comment3.params=
+comment3.target=void\ testWarehouseFindClosestShopPastMaxDistance()
+comment4.params=
+comment4.target=void\ testWarehouseLoadTruck()
+comment5.params=
+comment5.target=void\ testWarehouseLoadTruckUsingMultipleTrucks()
+comment6.params=
+comment6.target=void\ testWarehouseLoadTruckWithShopsUnfulfilled()
+comment7.params=
+comment7.target=void\ testWarehouseFulfillRemainingShops()
+comment8.params=
+comment8.target=void\ testWarehouseSendTrucks()
+comment9.params=
+comment9.target=void\ testWarehouseSendTrucksMultipleTrucks()
+numComments=10
