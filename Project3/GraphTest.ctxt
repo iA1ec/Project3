@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=GraphTest
+comment0.text=\n\ The\ test\ class\ GraphTest.\n
+comment1.params=
+comment1.target=void\ testGraphCreation()
+comment2.params=
+comment2.target=void\ testGraphAddEdges()
+numComments=3

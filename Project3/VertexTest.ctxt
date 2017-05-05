@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=VertexTest
+comment0.text=\n\ The\ test\ class\ VertexTest.\n
+comment1.params=
+comment1.target=void\ testVertexCreation()
+comment2.params=
+comment2.target=void\ testVertexDistance()
+comment3.params=
+comment3.target=void\ testVertexDistanceZero()
+comment4.params=
+comment4.target=void\ testVertexAddEdge()
+numComments=5

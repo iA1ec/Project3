@@ -4,10 +4,11 @@ import java.util.ArrayList;
 /**
  * A Class to represent a Warehouse with many trucks
  */
-public class Warehouse extends Vertex implements Comparable< Warehouse >{
+public class Warehouse extends Vertex {
     
     private int numOfTrucks; //The number of trucks that have been initialized at this warehouse
     private Truck[] trucks; //The actual truck objects from this warehouse
+    private boolean hasTrucksAvailable; //Whether the warehouse has trucks available or not
     public static final int MAX_DISTANCE = 50; //The maximum distance from the warehouse a truck can travel, except the base warehouse
     
     /**
@@ -17,6 +18,7 @@ public class Warehouse extends Vertex implements Comparable< Warehouse >{
         super(id, location);
         this.trucks = new Truck[ maxNumOfTrucks ];
         this.numOfTrucks = 0;
+        this.hasTrucksAvailable = true;
     }
     
     /**
@@ -24,7 +26,11 @@ public class Warehouse extends Vertex implements Comparable< Warehouse >{
      * This method is not used on the base warehouse
      */
     public void loadTruck() {
-        
+        if ( findClosestShop( new Truck( this ), this ) == null ) {
+            this.hasTrucksAvailable = false;
+            return;
+        }
+            
         Truck aTruck = new Truck(this);
         this.trucks[ this.numOfTrucks++ ] = aTruck;
         
@@ -110,6 +116,11 @@ public class Warehouse extends Vertex implements Comparable< Warehouse >{
      * @throws Exception if the warehouse runs out of trucks
      */
     public void fulfillRemainingShops() throws Exception {
+        if ( findClosestShopForBase( new Truck( this ), this ) == null ) {
+            this.hasTrucksAvailable = false;
+            return;
+        }
+            
         Truck aTruck = new Truck( this );
         this.trucks[ this.numOfTrucks++ ] = aTruck;
         Vertex start = this;
@@ -164,6 +175,9 @@ public class Warehouse extends Vertex implements Comparable< Warehouse >{
      * @return boolean  Returns true if the warehouse can make more trucks, else false
      */
     public boolean hasTrucksAvailable() {
+        if ( !this.hasTrucksAvailable )
+            return false;
+            
         if ( this.numOfTrucks < this.trucks.length )
             return true;
         else
@@ -203,14 +217,6 @@ public class Warehouse extends Vertex implements Comparable< Warehouse >{
      */
     public int getNumOfTrucks() {
         return numOfTrucks;
-    }
-    
-    
-    
-    public int compareTo( Warehouse second ) {
-        int thisDistance = (int)((this.location.getX() - 1) + (this.location.getY() - 1));
-        int secondDistance = (int)((second.location.getX() - 1) + (second.location.getY() - 1));
-        return secondDistance - thisDistance;
     }
     
     

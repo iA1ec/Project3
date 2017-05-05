@@ -9,15 +9,13 @@ public class Simulation {
     
     public static void main(String[] args) {
         Simulation mySim = new Simulation();
-        mySim.readInData("shops.txt", "warehouses2.txt");
-        //mySim.sortWarehouses();
+        mySim.readInData("shops.txt", "warehouses1.txt");
         mySim.addEdges();
         mySim.loadTrucks();
         mySim.sendTrucks();
         mySim.printTrucks();
         System.out.println( "Number of items not loaded: " + mySim.numOfUnfulfilledSupplies() );
         System.out.println( "All shops satisfied: " + mySim.checkSatisfied() );
-        //mySim.getGraph().printGraph();
     }
     
     

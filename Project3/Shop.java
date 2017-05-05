@@ -14,7 +14,7 @@ public class Shop extends Vertex
      * @param anId shop's unique id
      * @param coords shop location
      */
-    public Shop( Point aLocation, String anId ) {
+    public Shop( String anId, Point aLocation ) {
         super( anId, aLocation );
         this.supplyList = new ArrayList<Cargo>();
         this.satisfied = false;
@@ -48,23 +48,6 @@ public class Shop extends Vertex
         
         for ( String s : supplies )
             this.supplyList.add( new Cargo( this, Integer.parseInt( s ) ) );
-    }
-    
-    /**
-     * Adds a single set of supplies to the shop's supply list
-     * @param supplies weight of added supplies
-     */
-    public void addSupplies( int supplies ) {
-        this.supplyList.add( new Cargo( this, supplies ) );
-    }
-    
-    /**
-     * Adds a list of supplies to the shop's supply list
-     * @param supplies array of weights of added supplies
-     */
-    public void addSupplies( int[] supplies ) {
-        for ( int s : supplies )
-            this.supplyList.add( new Cargo( this, s ) );
     }
     
     /**

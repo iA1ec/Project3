@@ -17,16 +17,6 @@ public class Cargo {
        this.weight = weight;
        loaded = false;
    }
-    
-   
-   /**
-    * A Method to test if two cargos are equals, by weight and destination
-    * @param  aCargo  The cargo that the method is comparing to
-    * @return boolean Returns true if the cargo's fields are equals, else false
-    */
-   public boolean equals(Cargo aCargo) {
-       return destination.equals(aCargo.destination) && weight == aCargo.weight;
-   }
    
    
    /**
