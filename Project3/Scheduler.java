@@ -5,30 +5,80 @@ import java.awt.Point;
 /**
  * A Class to simulation the deliveries
  */
-public class Simulation {
+public class Scheduler {
     
     public static void main(String[] args) {
-        Simulation mySim = new Simulation();
-        mySim.readInData( args[0], args[1]);
-        mySim.addEdges();
-        mySim.loadTrucks();
-        mySim.sendTrucks();
+        Scheduler mySim = new Scheduler();
+        if ( args.length > 2 )
+            mySim.run( args[ 0 ], args[ 1 ], args[ 2 ] );
+        else
+            mySim.run( args[ 0 ], args[ 1 ] );
         mySim.printTrucks();
         System.out.println( "Number of items not loaded: " + mySim.numOfUnfulfilledSupplies() );
         System.out.println( "All shops satisfied: " + mySim.checkSatisfied() );
+        System.out.println( "Max warehouse distance: " + Warehouse.MAX_DISTANCE );
     }
     
     
-    private Graph cityGraph; //The Graph representing the city
-    private Shop[] shops; //all the shops in the city
-    private Warehouse[] warehouses; //all the warehouses in the city
-    private int totalDistanceTravelled; //The total distance travelled by all the trucks
+    /**
+     * Method used to run the scheduler with a given max warehouse distance
+     * @param shops file name for the shop data
+     * @param warehouses file name for the warehouse data
+     * @param maxDistance max distance for the trucks to travel from their home warehouse
+     */
+    public void run( String shops, String warehouses, String maxDistance ) {
+        this.shopsFile = shops;
+        this.warehousesFile = warehouses;
+        this.maxDistance = Integer.parseInt( maxDistance );
+        readInData( shops, warehouses );
+        addEdges();
+        
+        Warehouse.MAX_DISTANCE = this.maxDistance;
+            
+        loadTrucks();
+        sendTrucks();
+        countTrucks();
+    }
+    
     
     /**
-     * A Constructor for the Simulation
+     * Method used to run the scheduler without a given max warehouse distance
+     * @param shops file name for the shop data
+     * @param warehouses file name for the warehouse data
      */
-    public Simulation() {
-        cityGraph = new Graph();
+    public void run( String shops, String warehouses ) {
+        this.shopsFile = shops;
+        this.warehousesFile = warehouses;
+        readInData( shops, warehouses );
+        addEdges();
+        
+        this.maxDistance = calculateAverageWarehouseDistance();
+            
+        loadTrucks();
+        sendTrucks();
+        countTrucks();
+    }
+    
+    
+    private String shopsFile;               // file name used for the shop data
+    private String warehousesFile;          // file name used for the warehouse data
+    private Graph cityGraph;                // graph to represent the city of shops and warehouses
+    private Shop[] shops;                   // list of all shops in the city
+    private Warehouse[] warehouses;         // list of all warehouses in the city
+    private int totalDistanceTravelled;     // total distance travelled by all trucks
+    private int totalNumOfTrucks;           // total number of trucks used
+    private int maxDistance;                // max distance trucks can travel from their home warehouse
+    
+    
+    /**
+     * A Constructor for the Scheduler
+     */
+    public Scheduler() {
+        this.cityGraph = new Graph();
+        this.totalDistanceTravelled = 0;
+        this.totalNumOfTrucks = 0;
+        this.shopsFile = new String();
+        this.warehousesFile = new String();
     }
     
     /**
@@ -96,6 +146,25 @@ public class Simulation {
     }
     
     
+    /**
+     * A Method to calculate the average shortest warehouse distance from each shop and sets the max distance in the warehouse class to double that distance
+     */
+    public int calculateAverageWarehouseDistance() {
+        int totalShortestDistance = 0;
+        for ( int i = 0; i < this.shops.length; i++ ) {
+            int shortestDistance = Vertex.distanceBetween( this.shops[ i ], this.warehouses[ 0 ] );
+            for ( int j = 1; j < this.warehouses.length; j++ ) {
+                int currentDistance = Vertex.distanceBetween( this.shops[ i ], this.warehouses[ j ] );
+                if ( currentDistance < shortestDistance ) {
+                    shortestDistance = currentDistance;
+                }
+            }
+            totalShortestDistance += shortestDistance;
+        }
+        int averageDistance = totalShortestDistance / this.shops.length;
+        return Warehouse.MAX_DISTANCE = averageDistance * 2;
+    }
+    
     
     /**
      * A Method to add an edge from all vertices to all shops in the graph
@@ -134,7 +203,6 @@ public class Simulation {
      * Also calculates the total distance travelled
      */
     public void sendTrucks() {
-        this.totalDistanceTravelled = 0;
         for ( int i = 0; i < this.warehouses.length; i++ ) {
             this.totalDistanceTravelled += this.warehouses[ i ].sendTrucks();
         }
@@ -153,8 +221,21 @@ public class Simulation {
             if ( i == this.warehouses.length - 1 )
                 trucksFromBase = this.warehouses[ i ].getNumOfTrucks();
         }
+        this.totalNumOfTrucks = totalTrucks;
         System.out.println( "Total distance travelled by all " + totalTrucks + " trucks: " + this.totalDistanceTravelled );
         System.out.println( "Trucks used from base warehouse: " + trucksFromBase  );
+    }
+    
+    
+    /**
+     * A Method to count the number of trucks used and the total distance travelled by them
+     */
+    public void countTrucks() {
+        int totalTrucks = 0;
+        for ( int i = 0; i < this.warehouses.length; i++ ) {
+            totalTrucks += this.warehouses[ i ].getNumOfTrucks();
+        }
+        this.totalNumOfTrucks = totalTrucks;
     }
     
     
@@ -200,4 +281,11 @@ public class Simulation {
         return cityGraph;
     }
     
+    
+    /**
+     * Returns a string representing the scheduler simulation
+     */
+    public String toString() {
+        return "Experiment using \"" + this.shopsFile + "\" and \"" + this.warehousesFile + "\" resulted in a total distance of " + this.totalDistanceTravelled + " travelled by " + this.totalNumOfTrucks + " trucks. \tMAX_DISTANCE == " + this.maxDistance;
+    }
 }

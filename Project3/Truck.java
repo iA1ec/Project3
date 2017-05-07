@@ -15,7 +15,7 @@ public class Truck {
     public static final int CUT_OFF = 20; //The truck will stop being loaded if there is only 20 units of weight left
     
     /**
-     * A Constructor only given a base warehouse
+     * A Constructor for a truck given its starting warehouse
      */
     public Truck( Warehouse aWarehouse ) {
         baseWarehouse = aWarehouse;

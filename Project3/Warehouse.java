@@ -9,7 +9,7 @@ public class Warehouse extends Vertex {
     private int numOfTrucks; //The number of trucks that have been initialized at this warehouse
     private Truck[] trucks; //The actual truck objects from this warehouse
     private boolean hasTrucksAvailable; //Whether the warehouse has trucks available or not
-    public static final int MAX_DISTANCE = 60; //The maximum distance from the warehouse a truck can travel, except the base warehouse
+    public static int MAX_DISTANCE = 60; //The maximum distance from the warehouse a truck can travel, except the base warehouse
     
     /**
      * A Constructor given an id, location, and the maximum number of trucks
